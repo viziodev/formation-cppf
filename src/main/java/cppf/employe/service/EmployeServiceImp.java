@@ -4,13 +4,17 @@ import java.util.List;
 
 import cppf.employe.entity.Employe;
 import cppf.employe.entity.Service;
-import cppf.employe.repository.EmployeRepository;
 import cppf.employe.repository.ServiceRepository;
+import cppf.employe.repository.impl.EmployeListeRepository;
+
 
 public class EmployeServiceImp {
-    private EmployeRepository employeRepository=new EmployeRepository();
-    private ServiceRepository serviceRepository=new ServiceRepository();
+    private EmployeListeRepository employeRepository=new EmployeListeRepository();
+    private ServiceRepository serviceRepository;
    
+    public EmployeServiceImp(ServiceRepository serviceRepository) {
+        this.serviceRepository = serviceRepository;
+    }
     public void creerEmploye(Employe emp){
         //emp.getService().getEmployes().add(emp);
         employeRepository.insert(emp);
@@ -28,6 +32,9 @@ public class EmployeServiceImp {
    public List<Service>  listeService(){
          return serviceRepository.selectAll();
    }
+   public Service  rechercherParId(int id){
+        return serviceRepository.selectById(id);
+}
 
 
 }
